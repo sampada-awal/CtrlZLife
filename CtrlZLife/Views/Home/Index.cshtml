@@ -1,4 +1,18 @@
 ﻿@model List<CtrlZLife.Models.Commit>
+@{
+    var repos = ViewBag.Repos as List<CtrlZLife.Models.Repo>;
+}
+<h3>Repos</h3>
+
+@foreach (var r in repos)
+{
+<a href="/?repoId=@r.Id">@r.Name</a>
+
+}
+
+<a href="/">All</a>
+
+<hr />
 
     <h1> Ctrl+Z life </h1>
     <p> track life changes like commits</p>
@@ -14,6 +28,14 @@
     <br /><br />
 
     <input name="tag" placeholder="Tag" />
+    <br /><br />
+    <select name="repoId" required>
+        @foreach (var r in repos)
+        {
+            <option value="@r.Id">@r.Name</option>
+        }
+    </select>
+
     <br /><br />
 
     <button type="submit">Commit</button>
@@ -33,7 +55,9 @@ else
             Reason: @c.Reason<br/>
             Impact: @c.Impact<br />
             Tag: @c.Tag<br />
+            Repo: @repos.First(r => r.Id == c.RepoId).Name <br />
             <small>@c.Date</small>
+            
         </div>
     }
 }
