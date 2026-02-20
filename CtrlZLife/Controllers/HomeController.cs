@@ -31,16 +31,16 @@ namespace CtrlZLife.Controllers
         [HttpPost]
         public IActionResult AddCommit(int repoId, string message, string reason, string impact, string tag)
         {
-            var commit = new Commit
+            commits.Add(new Commit
             {
-                Id = commits.Count + 1,
+                RepoId = repoId,
                 Message = message,
                 Reason = reason,
                 Impact = impact,
                 Tag = tag,
                 Date = DateTime.Now
-            };
-            commits.Add(commit);
+            });
+
             return RedirectToAction("Index");
         }
          
